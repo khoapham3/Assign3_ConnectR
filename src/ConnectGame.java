@@ -112,10 +112,10 @@ public class ConnectGame {
             position = in.next();
         }
 
-        while (Integer.parseInt(position) < 0 ) {
-
+        while (Integer.parseInt(position) < 0 && Integer.parseInt(position) > board.getCol() - 1) {
             System.out.println("Your move must be between 0 and " + (board.getCol() - 1));
-            position = in.next();
+            position = "" + checkValidMove(in.next(), board);
+
         }
 
         return Integer.parseInt(position);
