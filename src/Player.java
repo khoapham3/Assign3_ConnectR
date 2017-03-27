@@ -30,12 +30,42 @@ public class Player {
 
 
     private int newMove(ConnectBoard board) {
-        System.out.println();
-        return 1;
+        System.out.println("Enter in your new move (0-" + (board.getCol() - 1) + ": ");
+
+        int position = checkValidMove(in.next(), board);
+
+        return drop(position, board);
     }
 
     public char getPlayerType() {
         return this.playerType;
+    }
+
+    private int checkValidMove(String position, ConnectBoard board) {
+        while (!isInteger(position)) {
+            System.out.println("That is not an integer value.");
+            System.out.println("Enter in your move (0-" + (board.getCol() - 1) + ": ");
+            position = in.next();
+        }
+
+        while (Integer.parseInt(position) < 0 && Integer.parseInt(position) > board.getCol() - 1) {
+            System.out.println("Your move must be between 0 and " + (board.getCol() - 1));
+            position = "" + checkValidMove(in.next(), board);
+
+        }
+
+        return Integer.parseInt(position);
+    }
+
+    private boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        }
+        catch (Exception ex) {
+            return false;
+        }
+
+        return true;
     }
 
 }
