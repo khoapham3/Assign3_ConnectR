@@ -30,7 +30,7 @@ public class Player {
 
 
     private int newMove(ConnectBoard board) {
-        System.out.println("Enter in your new move (0-" + (board.getCol() - 1) + ": ");
+        System.out.println("Enter in a new move (0-" + (board.getCol() - 1) + "): ");
 
         int position = checkValidMove(in.next(), board);
 
@@ -41,10 +41,12 @@ public class Player {
         return this.playerType;
     }
 
+    /** _____THIS CODE IS DUPLICATED IN CONNECTGAME CLASS_______
+     * _____FIGURE OUT HOW TO FIX THIS DUPLICATION_______ */
     private int checkValidMove(String position, ConnectBoard board) {
         while (!isInteger(position)) {
             System.out.println("That is not an integer value.");
-            System.out.println("Enter in your move (0-" + (board.getCol() - 1) + ": ");
+            System.out.println("Enter in your move (0-" + (board.getCol() - 1) + "): ");
             position = in.next();
         }
 
@@ -57,6 +59,8 @@ public class Player {
         return Integer.parseInt(position);
     }
 
+    /** _____THIS CODE IS DUPLICATED IN CONNECTGAME CLASS_______
+     * _____FIGURE OUT HOW TO FIX THIS DUPLICATION_______ */
     private boolean isInteger(String s) {
         try {
             Integer.parseInt(s);

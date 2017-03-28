@@ -11,6 +11,7 @@ public class ConnectBoard {
     private int r;
     private char[][] board;
 
+    /** CONSTRUCTORS */
     /** Standard 7 x 6 Connect board */
     public ConnectBoard() {
         this.rows = 6;
@@ -67,7 +68,7 @@ public class ConnectBoard {
         System.out.println();
 
 
-        /** Prints indices for each column */
+        /** Prints indices for each column (which are the possible moves for the board)*/
         System.out.print("|");
         for (int i = 0; i < this.cols; i++) {
             System.out.print(i + "|");
@@ -76,7 +77,7 @@ public class ConnectBoard {
         System.out.println();
     }
 
-    /** Initializes every position to '.', which signifies an empty spot */
+    /** Initializes every position to '.' (which signifies an empty spot on the board) */
     private void initBoard() {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
