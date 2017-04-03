@@ -38,12 +38,11 @@ public class ConnectBoard {
         return this.cols;
     }
 
-    public char getPosition(int n, int m) {
-        return this.board[n][m];
-    }
-
     public int getR() {
         return this.r;
+    }
+    public char getPosition(int n, int m) {
+        return this.board[n][m];
     }
 
     public void setPosition(int n, int m, char c) {
@@ -68,7 +67,7 @@ public class ConnectBoard {
         System.out.println();
 
 
-        /** Prints indices for each column (which are the possible moves for the board)*/
+        /** Prints indices for each column (which are the possible moves for the board) */
         System.out.print("|");
         for (int i = 0; i < this.cols; i++) {
             System.out.print(i + "|");

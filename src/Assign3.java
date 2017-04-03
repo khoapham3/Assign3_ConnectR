@@ -3,16 +3,16 @@
  */
 import java.util.*;
 import java.lang.*;
-import java.io.*;
 
 public class Assign3 {
 
+    private static InputCheck inputCheck = new InputCheck();
     private static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
 
         System.out.println("Play default Connect 4? (y/n) ");
-        String input = checkInput(in.next());
+        String input = inputCheck.checkGameSelection(in.next());
 
         ConnectGame game;
 
@@ -36,12 +36,4 @@ public class Assign3 {
         game.start();
     }
 
-    private static String checkInput(String s) {
-        while (!s.equalsIgnoreCase("y") && !s.equalsIgnoreCase("n")) {
-            System.out.println("Not a valid input.");
-            System.out.println("Please enter y/n if you'd like to play default Connect 4: ");
-            s = in.next();
-        }
-        return s;
-    }
 }

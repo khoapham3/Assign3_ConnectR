@@ -3,7 +3,6 @@
  */
 import java.util.*;
 import java.lang.*;
-import java.io.*;
 
 public class ConnectGame {
 
@@ -15,6 +14,7 @@ public class ConnectGame {
     private int TOTAL_MOVES;        /** Total number of possible moves on the board */
     private int currentMoves;       /** Current total number of moves made by either player*/
 
+    private InputCheck inputCheck;
     private Scanner in = new Scanner(System.in);
 
     /** CONSTRUCTORS */
@@ -25,6 +25,7 @@ public class ConnectGame {
         currentMoves = 0;
         winConnectionX = buildWinningConnection('X');
         winConnectionO = buildWinningConnection('O');
+        inputCheck = new InputCheck();
     }
 
     /** Custom game of ConnectR */
@@ -34,6 +35,7 @@ public class ConnectGame {
         currentMoves = 0;
         winConnectionX = buildWinningConnection('X');
         winConnectionO = buildWinningConnection('O');
+        inputCheck = new InputCheck();
     }
 
     /** Starts of game of ConnectR */
@@ -42,7 +44,7 @@ public class ConnectGame {
         this.board.printBoard();
 
         System.out.println("Are you Player X or O? (x/o)");
-//        String playerType = checkValidPlayerType(in.next());
+        String playerType = inputCheck.checkValidPlayerType(in.next());
 
         System.out.println("Player X moves first.");
 
@@ -52,9 +54,14 @@ public class ConnectGame {
          */
         while (currentMoves <= TOTAL_MOVES) {
 
-            System.out.println("Enter in a move: ");
+            if (isEven(currentMoves)) {
+                System.out.println("Player X move: ");
+            }
+            else {
+                System.out.println("Player O move: ");
+            }
 
-            int colMove = checkValidMove(in.next(), board);
+            int colMove = inputCheck.checkValidMove(in.next(), board);
             int rowMove;
 
             if (isEven(currentMoves)) {
@@ -115,9 +122,7 @@ public class ConnectGame {
         return sb.toString();
     }
 
-    /**
-     * The contents of the "/" diagonal containing the last played chip.
-     */
+    /** The contents of the "/" diagonal containing the last played chip. */
     private String slashDiagonal(int n, int m, ConnectBoard board) {
         StringBuilder sb = new StringBuilder(board.getRow());
         for (int i = 0; i < board.getRow(); i++) {
@@ -146,40 +151,6 @@ public class ConnectGame {
         return search.contains(sequence);
     }
 
-    /** Verifies if the player's move is valid
-     * The player must input an integer with value between 0 and the number of columns of the board
-     */
-    /** _____THIS CODE IS DUPLICATED IN PLAYER CLASS_______
-     * _____FIGURE OUT HOW TO FIX THIS DUPLICATION_______ */
-    private int checkValidMove(String position, ConnectBoard board) {
-
-        /** This runs if the passed string cannot be parsed to an integer */
-        while (!isInteger(position)) {
-            System.out.println("That is not an integer value.");
-            System.out.println("Enter in a valid move (0-" + (board.getCol() - 1) + "): ");
-            position = in.next();
-        }
-
-        /** This runs if the integer string is not between 0 and the number of columns of the board */
-        while (Integer.parseInt(position) < 0 || Integer.parseInt(position) > board.getCol() - 1) {
-            System.out.println("Your move must be between 0 and " + (board.getCol() - 1) + ".");
-            position = "" + checkValidMove(in.next(), board);       // Checks if the newly passed string is valid recursively
-
-        }
-
-        return Integer.parseInt(position);
-    }
-
-    private String checkValidPlayerType(String s) {
-        while (!s.equalsIgnoreCase("x") && !s.equalsIgnoreCase("o")) {
-            System.out.println("That is not a valid Player type.");
-            System.out.println("Are you Player X or O? (x/o)");
-            s = in.next();
-        }
-
-        return s;
-    }
-
     private String buildWinningConnection(char c) {
         StringBuilder sb = new StringBuilder(board.getR());
         for (int i = 0; i < board.getR(); i++) {
@@ -189,23 +160,7 @@ public class ConnectGame {
         return sb.toString();
     }
 
-    /** Checks if a string is an integer */
-    /** _____THIS CODE IS DUPLICATED IN PLAYER CLASS_______
-     * _____FIGURE OUT HOW TO FIX THIS DUPLICATION_______ */
-    private boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        }
-        catch (Exception ex) {
-            return false;       // The string cannot be parsed to an integer
-        }
-
-        return true;        // Only executes if passed string can be parsed to an integer
-    }
-
-
     private boolean isEven(int num) {
         return num % 2 == 0;
     }
-
 }
